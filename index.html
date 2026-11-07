@@ -125,6 +125,22 @@ h2 { font-family: var(--head); font-weight: 400; font-size: 30px; line-height: 1
   font-variant-numeric: tabular-nums;
 }
 .drop-num small { font-size: 12px; letter-spacing: 2px; margin-top: 2px; }
+/* black friday */
+.bf { background: var(--ink); color: var(--white); border: 2px solid var(--pink); padding: 22px 18px; display: flex; flex-direction: column; gap: 12px; }
+.bf[hidden] { display: none; }
+.bf-tag { align-self: flex-start; background: var(--pink); color: var(--night); font-family: var(--head); font-size: 15px; letter-spacing: 3px; padding: 4px 12px 2px; border-radius: 30px; }
+.bf h2 { color: var(--white); font-size: 34px; }
+.bf .big { font-family: var(--head); font-size: 24px; letter-spacing: .5px; line-height: 1.15; color: var(--pink); margin: 0; }
+.bf p { margin: 0; }
+.bf .bf-btns { display: grid; gap: 10px; }
+.bf .bf-btns[hidden] { display: none; }
+.bf .pill { min-height: 46px; font-size: 16px; letter-spacing: 2.4px; }
+.bf .fine { opacity: .72; }
+.bf-count-label { font-family: var(--head); font-size: 15px; letter-spacing: 3px; color: var(--pink); margin: 2px 0 -4px; }
+.bf-clock { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.bf-clock div { background: var(--night-2); border: 1px solid rgba(255, 203, 228, .35); border-radius: 14px; padding: 10px 4px 8px; text-align: center; }
+.bf-clock b { display: block; font-family: var(--head); font-weight: 400; font-size: 34px; line-height: 1; font-variant-numeric: tabular-nums; color: var(--white); }
+.bf-clock span { display: block; font-size: 11px; letter-spacing: 2px; margin-top: 4px; color: var(--muted); }
 .drop strong { font-family: var(--head); font-weight: 400; font-size: 21px; letter-spacing: .5px; display: block; line-height: 1.1; margin-bottom: 4px; }
 
 /* services */
@@ -223,6 +239,29 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
         <p class="sub" id="dropSub">I open new appointments on the third Friday of every month. Set a reminder so you don't miss your spot!</p>
       </div>
     </div>
+  </section>
+
+  <section class="bf" id="bfCard" aria-labelledby="bf-h">
+    <span class="bf-tag" id="bfTag">STARTS FRI 11/13 · 10 AM</span>
+    <h2 id="bf-h">BLACK FRIDAY SALE &#9825;</h2>
+    <p class="big">15% off every Tier 3 + 4 set when you prebook December, January + February</p>
+    <p class="bf-count-label" id="bfCountLabel">SALE OPENS IN</p>
+    <div class="bf-clock" role="timer" aria-labelledby="bfCountLabel">
+      <div><b id="bfD">0</b><span>DAYS</span></div>
+      <div><b id="bfH">00</b><span>HRS</span></div>
+      <div><b id="bfM">00</b><span>MIN</span></div>
+      <div><b id="bfS">00</b><span>SEC</span></div>
+    </div>
+    <ul class="list">
+      <li>Book one appointment in each month: December, January and February.</li>
+      <li>A $30 deposit for each one holds your spots and goes toward your appointments.</li>
+      <li>Already booked for December? Add January + February and your December set gets the 15% too.</li>
+    </ul>
+    <div class="bf-btns" id="bfBtns" hidden>
+      <a class="pill pill-solid js-book" href="https://giaanailedit.glossgenius.com/book">BOOK NOW</a>
+      <a class="pill pill-line" href="https://ig.me/m/giaa.nailedit">DM ME YOUR DATES</a>
+    </div>
+    <p class="fine" id="bfFine">Sale opens Friday, November 13 at 10 AM and ends Monday, November 30 at 11:59 PM. Moving an appointment to a different month or cancelling it means that appointment loses the 15%.</p>
   </section>
 
   <section class="card" aria-labelledby="svc-h">
@@ -431,10 +470,15 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
   // 2026 season: Dec, Jan + Feb all open at once on Fri Nov 13; regular third-Friday releases resume Fri Jan 15, 2027.
   var SEASON_OPEN = new Date(2026, 10, 13), RESUME = new Date(2027, 0, 15);
   function daysTo(d) { return Math.round((d - today) / 86400000); }
-  if (today < SEASON_OPEN) {
+  if (Date.now() < Date.UTC(2026, 10, 13, 15, 0, 0)) {   // opens Fri Nov 13 at 10 AM New York time
     var d0 = daysTo(SEASON_OPEN);
-    num.innerHTML = d0 + "<small>" + (d0 === 1 ? "DAY" : "DAYS") + "</small>";
-    line.textContent = "December, January + February books open Fri, Nov 13";
+    if (d0 <= 0) {
+      num.innerHTML = "&#9825;<small>TODAY</small>";
+      line.textContent = "December, January + February books open today at 10 AM";
+    } else {
+      num.innerHTML = d0 + "<small>" + (d0 === 1 ? "DAY" : "DAYS") + "</small>";
+      line.textContent = "December, January + February books open Fri, Nov 13";
+    }
     sub.textContent = "All three months open at once. Set a reminder so you don't miss your spot!";
   } else if (today < RESUME) {
     num.innerHTML = "&#9825;<small>OPEN</small>";
@@ -452,6 +496,35 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
       line.textContent = "New appointments open Fri, " + target.toLocaleString("en-US", { month: "short", day: "numeric" });
     }
   }
+
+  // ---------- Black Friday sale card + live countdown ----------
+  // Times are New York time: opens Fri Nov 13, 2026 at 10 AM, ends Mon Nov 30 at 11:59:59 PM.
+  var bf = document.getElementById("bfCard");
+  var BF_OPEN = Date.UTC(2026, 10, 13, 15, 0, 0);   // 10:00 AM EST
+  var BF_END = Date.UTC(2026, 11, 1, 5, 0, 0);      // midnight after Nov 30, EST
+  var bfMode = "";
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+  function tickBF() {
+    var t = Date.now();
+    if (t >= BF_END) { bf.hidden = true; clearInterval(bfTimer); return; }
+    var live = t >= BF_OPEN;
+    var mode = live ? "live" : "soon";
+    if (mode !== bfMode) {
+      bfMode = mode;
+      document.getElementById("bfCountLabel").textContent = live ? "SALE ENDS IN" : "SALE OPENS IN";
+      document.getElementById("bfBtns").hidden = !live;
+      if (live) document.getElementById("bfFine").textContent = "Ends Monday, November 30 at 11:59 PM. Moving an appointment to a different month or cancelling it means that appointment loses the 15%.";
+    }
+    var left = Math.max(0, Math.floor(((live ? BF_END : BF_OPEN) - t) / 1000));
+    var d = Math.floor(left / 86400), h = Math.floor(left % 86400 / 3600), m = Math.floor(left % 3600 / 60), sec = left % 60;
+    if (live) document.getElementById("bfTag").textContent = d === 0 ? "LAST DAY \u00b7 ENDS TONIGHT" : "ON NOW \u00b7 ENDS MON 11/30";
+    document.getElementById("bfD").textContent = d;
+    document.getElementById("bfH").textContent = pad(h);
+    document.getElementById("bfM").textContent = pad(m);
+    document.getElementById("bfS").textContent = pad(sec);
+  }
+  var bfTimer = setInterval(tickBF, 1000);
+  tickBF();
 
   // ---------- CASHMERE launch tag ----------
   if (today >= new Date(2026, 11, 10)) document.getElementById("cashTag").textContent = "NOW AVAILABLE";
