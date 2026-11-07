@@ -178,6 +178,7 @@ h2 { font-family: var(--head); font-weight: 400; font-size: 30px; line-height: 1
 .cash h2 { font-family: var(--serif); font-size: 26px; letter-spacing: 9px; color: var(--gold); font-weight: 500; }
 .cash p { margin: 0; color: #d6c8ae; font-size: 14px; }
 .cash .price { font-family: var(--serif); font-size: 20px; color: #efe3cb; }
+.cash-tag { align-self: center; font-family: var(--head); font-size: 14px; letter-spacing: 3px; color: #120c10; background: var(--gold); padding: 4px 10px 2px; }
 
 footer { display: grid; gap: 8px; text-align: center; font-family: var(--head); font-size: 15px; letter-spacing: 2px; }
 footer a { text-decoration: none; }
@@ -219,7 +220,7 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
       <div class="drop-num" id="dropNum">--<small>DAYS</small></div>
       <div>
         <strong id="dropLine">Books open the third Friday</strong>
-        <p class="sub">I open next month's appointments on the third Friday of every month. Set a reminder so you don't miss your spot!</p>
+        <p class="sub" id="dropSub">I open new appointments on the third Friday of every month. Set a reminder so you don't miss your spot!</p>
       </div>
     </div>
   </section>
@@ -232,7 +233,7 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
       <li><span class="n">GEL-X FULL SET &#9825;</span><span class="p">from $100</span></li>
       <li><span class="n">STRUCTURED GEL (HARD GEL) &#9825;</span><span class="p">from $85</span></li>
     </ul>
-    <p class="sub">Every service includes prep, shaping and one solid gel color. Prices include tax.</p>
+    <p class="sub">Every service includes prep, shaping and one solid gel color. Prices include NY sales tax.</p>
     <div class="formula">BASE + ART = YOUR SET &#9825;</div>
     <a class="pill pill-dark" href="https://giaanailedit.glossgenius.com/services">VIEW ALL SERVICES</a>
   </section>
@@ -307,7 +308,7 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
     <h2 id="pol-h">POLICIES</h2>
     <ul class="list">
       <li>Cancel or reschedule at least 48 hours ahead. With that notice, your deposit can move once to a new appointment within 30 days.</li>
-      <li>Within 48 hours or a no-show is 50% of your service total, and the deposit is forfeited.</li>
+      <li>Within 48 hours or a no-show is 50% of your service total.</li>
       <li>10-minute grace period. Later than that, your service or art may be shortened, but the full price still applies.</li>
       <li>Free repairs within 7 days for chips, lifting, or a design that looks off. After 7 days, repairs are charged.</li>
       <li>Fills every 3&ndash;4 weeks. 5+ weeks is a new set. Fills are for my work only.</li>
@@ -332,6 +333,10 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
         <p>Acrylic fills keep your current shape. Book a full set for a new shape.</p>
       </div>
       <div>
+        <h3>WHAT DAYS DO YOU WORK?</h3>
+        <p>Through December: Monday, Tuesday, Friday, Saturday + Sunday. Starting in January: Wednesday&ndash;Friday 9 AM&ndash;7:30 PM and Saturday + Sunday 10 AM&ndash;6 PM.</p>
+      </div>
+      <div>
         <h3>WHERE ARE YOU?</h3>
         <p>687 Broadway, Brooklyn, NY 11206. Every appointment is one-on-one with me.</p>
       </div>
@@ -339,10 +344,11 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
   </section>
 
   <section class="cash" aria-labelledby="cash-h">
+    <span class="cash-tag" id="cashTag">COMING 12/10</span>
     <h2 id="cash-h">CASHMERE</h2>
     <p>Saffron &middot; amberwood &middot; jasmine</p>
     <p>My handmade cuticle oil in a gold twist pen.</p>
-    <p class="price">$12 &middot; $10 when you rebook in person</p>
+    <p class="price">$12 &middot; $10 when you add it to your set</p>
   </section>
 
   <footer class="pad">
@@ -419,19 +425,36 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
   }
   var now = new Date();
   var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  var target = thirdFriday(today.getFullYear(), today.getMonth());
-  if (today > target) target = thirdFriday(today.getFullYear(), today.getMonth() + 1);
-  var days = Math.round((target - today) / 86400000);
-  var opening = new Date(target.getFullYear(), target.getMonth() + 1, 1).toLocaleString("en-US", { month: "long" });
   var num = document.getElementById("dropNum");
   var line = document.getElementById("dropLine");
-  if (days === 0) {
-    num.innerHTML = "&#9825;<small>TODAY</small>";
-    line.textContent = opening + " books open today!";
+  var sub = document.getElementById("dropSub");
+  // 2026 season: Dec, Jan + Feb all open at once on Fri Nov 13; regular third-Friday releases resume Fri Jan 15, 2027.
+  var SEASON_OPEN = new Date(2026, 10, 13), RESUME = new Date(2027, 0, 15);
+  function daysTo(d) { return Math.round((d - today) / 86400000); }
+  if (today < SEASON_OPEN) {
+    var d0 = daysTo(SEASON_OPEN);
+    num.innerHTML = d0 + "<small>" + (d0 === 1 ? "DAY" : "DAYS") + "</small>";
+    line.textContent = "December, January + February books open Fri, Nov 13";
+    sub.textContent = "All three months open at once. Set a reminder so you don't miss your spot!";
+  } else if (today < RESUME) {
+    num.innerHTML = "&#9825;<small>OPEN</small>";
+    line.textContent = "December, January + February are open now";
+    sub.textContent = "Starting in January I'm booking Wednesday through Sunday too \u2661";
   } else {
-    num.innerHTML = days + "<small>" + (days === 1 ? "DAY" : "DAYS") + "</small>";
-    line.textContent = opening + " books open Fri, " + target.toLocaleString("en-US", { month: "short", day: "numeric" });
+    var target = thirdFriday(today.getFullYear(), today.getMonth());
+    if (today > target) target = thirdFriday(today.getFullYear(), today.getMonth() + 1);
+    var days = daysTo(target);
+    if (days === 0) {
+      num.innerHTML = "&#9825;<small>TODAY</small>";
+      line.textContent = "New appointments open today!";
+    } else {
+      num.innerHTML = days + "<small>" + (days === 1 ? "DAY" : "DAYS") + "</small>";
+      line.textContent = "New appointments open Fri, " + target.toLocaleString("en-US", { month: "short", day: "numeric" });
+    }
   }
+
+  // ---------- CASHMERE launch tag ----------
+  if (today >= new Date(2026, 11, 10)) document.getElementById("cashTag").textContent = "NOW AVAILABLE";
 
   // ---------- tier finder ----------
   var price = { 1: "+$15", 2: "+$25", 3: "+$40", 4: "$75+ Full Custom" };
