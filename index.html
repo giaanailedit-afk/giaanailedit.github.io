@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Giaa.Nailedit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Bodoni+Moda:opsz,wght@6..96,500&family=Inter:wght@400;600;800&family=Staatliches&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Matches the GlossGenius booking site: night-burgundy page, zebra hero, pink band, white service cards, pill buttons. */
+  --night: #200013;
+  --night-2: #33061f;
+  --pink: #ffcbe4;
+  --white: #ffffff;
+  --ink: #0f0f11;
+  --muted: rgba(255, 255, 255, .66);
+  --wine: #5b0a24;
+  --ice: #a8c3dc;
+  --gold: #c9a35a;
+  --head: "Staatliches", "Trebuchet MS", Arial, sans-serif;
+  --body: "Inter", Helvetica, Arial, system-ui, sans-serif;
+  --script: "Beau Rivage", "Snell Roundhand", "Brush Script MT", cursive;
+  --serif: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--night);
+  color: var(--white);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.55;
+}
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--pink); outline-offset: 3px; }
+
+.wrap { max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 22px; padding-bottom: 40px; }
+.pad { padding: 0 18px; }
+
+/* top bar */
+.top { display: flex; justify-content: space-between; align-items: center; padding: 18px 18px 6px; }
+.top .mark { font-family: var(--head); font-size: 20px; letter-spacing: 1px; text-decoration: none; }
+.top .mini { font-family: var(--head); font-size: 15px; letter-spacing: 3px; text-decoration: none; color: var(--pink); }
+
+/* hero */
+.hero-title { font-family: var(--head); text-align: center; font-size: 34px; letter-spacing: 1px; margin: 6px 0 0; font-weight: 400; }
+.hero { display: block; width: 100%; max-width: 100%; height: auto; aspect-ratio: 4 / 5; background: #ece8e7; }
+.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero-logo { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 20px; }
+.hero-logo .giaa {
+  font-family: var(--script);
+  font-size: 108px;
+  line-height: 1;
+  color: var(--wine);
+  text-shadow: 3px 3px 0 var(--ice);
+  margin: 0 0 -18px -6px;
+}
+.hero-logo .nailedit {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 54px;
+  letter-spacing: 4px;
+  color: var(--wine);
+  text-shadow: 3px 3px 0 var(--ice);
+  align-self: flex-end;
+  transform: scaleY(1.45);
+  transform-origin: bottom right;
+  margin: 0;
+  line-height: 1;
+}
+.hero-loc {
+  position: absolute; left: 0; right: 0; bottom: 22px;
+  text-align: center;
+  font-family: var(--serif);
+  font-size: 17px;
+  letter-spacing: 1px;
+  color: var(--wine);
+  text-transform: uppercase;
+}
+
+/* pink band */
+.band { background: var(--pink); color: var(--night); overflow: hidden; white-space: nowrap; padding: 10px 0 8px; }
+.band-track { display: inline-flex; gap: 28px; padding-left: 18px; font-family: var(--head); font-size: 20px; letter-spacing: 1px; animation: slide 22s linear infinite; }
+@keyframes slide { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .band-track { animation: none; } }
+
+/* buttons */
+.btns { display: grid; gap: 12px; }
+.socials { display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px; }
+.socials .pill { font-size: 16px; letter-spacing: 2.4px; }
+.pill {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 52px;
+  border-radius: 30px;
+  font-family: var(--head);
+  font-size: 18px;
+  letter-spacing: 3.2px;
+  text-decoration: none;
+  border: 1px solid var(--white);
+}
+.pill-solid { background: var(--white); color: var(--night); }
+.pill-line { background: transparent; color: var(--white); }
+.pill-dark { background: var(--ink); color: var(--white); border-color: var(--ink); min-height: 44px; font-size: 16px; }
+
+/* cards */
+.card { background: var(--white); color: var(--ink); padding: 22px 18px; display: flex; flex-direction: column; gap: 12px; }
+.card.pinkcard { background: var(--pink); color: var(--night); }
+.card.darkcard { background: var(--night-2); color: var(--white); border: 1px solid rgba(255, 203, 228, .25); }
+h2 { font-family: var(--head); font-weight: 400; font-size: 30px; line-height: 1; letter-spacing: 1px; margin: 0; text-wrap: balance; }
+.darkcard h2 { color: var(--pink); }
+.card p { margin: 0; }
+.sub { font-size: 14px; opacity: .78; }
+.heart { color: #e0559a; }
+
+/* drop countdown */
+.drop { display: flex; align-items: center; gap: 16px; }
+.drop-num {
+  flex: none; width: 78px; height: 78px; border-radius: 50%;
+  background: var(--night); color: var(--pink);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-family: var(--head); font-size: 34px; line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.drop-num small { font-size: 12px; letter-spacing: 2px; margin-top: 2px; }
+.drop strong { font-family: var(--head); font-weight: 400; font-size: 21px; letter-spacing: .5px; display: block; line-height: 1.1; margin-bottom: 4px; }
+
+/* services */
+.svc { list-style: none; margin: 0; padding: 0; display: grid; }
+.svc li { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 11px 0; border-bottom: 1px solid #e7e3e5; }
+.svc li:first-child { border-top: 1px solid #e7e3e5; }
+.svc .n { font-family: var(--head); font-size: 19px; letter-spacing: .5px; }
+.svc .p { font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.formula { font-family: var(--head); font-size: 20px; letter-spacing: 1px; text-align: center; background: var(--pink); color: var(--night); padding: 8px 10px 6px; }
+
+/* tier finder */
+.q { font-family: var(--head); font-size: 16px; letter-spacing: 2px; margin: 4px 0 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font-family: var(--body); font-size: 14px; font-weight: 600;
+  padding: 9px 14px; border-radius: 30px;
+  border: 1px solid var(--ink); background: var(--white); color: var(--ink);
+  cursor: pointer; text-align: left;
+}
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--white); }
+.chip:disabled { opacity: .35; cursor: default; }
+.result { display: flex; align-items: center; gap: 14px; background: var(--night); color: var(--white); padding: 14px; }
+.result-tier { flex: none; min-width: 84px; text-align: center; font-family: var(--head); font-size: 16px; letter-spacing: 2px; color: var(--pink); line-height: 1; }
+.result-tier span { display: block; font-size: 46px; letter-spacing: 0; }
+.result strong { display: block; font-family: var(--head); font-weight: 400; font-size: 22px; letter-spacing: 1px; color: var(--pink); }
+.result-text { font-size: 14px; }
+.fine { font-size: 13px; opacity: .7; }
+.tiers { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+.tiers li { display: grid; grid-template-columns: 64px 54px 1fr; gap: 8px; font-size: 14px; align-items: baseline; }
+.tiers b { font-family: var(--head); font-weight: 400; font-size: 17px; letter-spacing: 1px; }
+.tiers .amt { font-weight: 800; font-variant-numeric: tabular-nums; }
+
+/* lists */
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.list li { display: grid; grid-template-columns: 18px 1fr; gap: 8px; font-size: 15px; }
+.list li::before { content: "\2661"; color: #e0559a; font-weight: 800; }
+.darkcard .list li::before { color: var(--pink); }
+
+/* faq */
+.faq { display: grid; gap: 14px; }
+.faq h3 { font-family: var(--head); font-weight: 400; font-size: 19px; letter-spacing: .5px; margin: 0 0 2px; }
+
+/* cashmere */
+.cash { background: #120c10; border: 1px solid var(--gold); padding: 26px 20px; display: flex; flex-direction: column; gap: 8px; text-align: center; }
+.cash h2 { font-family: var(--serif); font-size: 26px; letter-spacing: 9px; color: var(--gold); font-weight: 500; }
+.cash p { margin: 0; color: #d6c8ae; font-size: 14px; }
+.cash .price { font-family: var(--serif); font-size: 20px; color: #efe3cb; }
+
+footer { display: grid; gap: 8px; text-align: center; font-family: var(--head); font-size: 15px; letter-spacing: 2px; }
+footer a { text-decoration: none; }
+footer .addr { color: var(--pink); }
+footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; color: var(--muted); margin-top: 6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="top" aria-label="Giaa.Nailedit">
+    <a class="mark" href="https://giaanailedit.glossgenius.com/">GIAA.NAILEDIT</a>
+    <a class="mini js-book" href="https://giaanailedit.glossgenius.com/book">BOOK NOW</a>
+  </nav>
+
+  <h1 class="hero-title">GIAA.NAILEDIT</h1>
+
+  <img class="hero" src="logo.jpg" width="900" height="1125" alt="Giaa Nailedit logo on zebra print. Located in Brooklyn NY.">
+
+
+  <div class="band" aria-label="Custom funky detailed nails. More than just a mani. New clients welcome.">
+    <div class="band-track" aria-hidden="true">
+      <span>CUSTOM FUNKY DETAILED NAILS &#9825;</span><span>MORE THAN JUST A MANI &#9825;</span><span>NEW CLIENTS WELCOME &#9825;</span>
+      <span>CUSTOM FUNKY DETAILED NAILS &#9825;</span><span>MORE THAN JUST A MANI &#9825;</span><span>NEW CLIENTS WELCOME &#9825;</span>
+    </div>
+  </div>
+
+  <div class="btns pad">
+    <a class="pill pill-solid js-book" href="https://giaanailedit.glossgenius.com/book">BOOK NOW</a>
+    <div class="socials">
+      <a class="pill pill-line" href="https://ig.me/m/giaa.nailedit">DM ON INSTAGRAM</a>
+      <a class="pill pill-line" href="https://www.tiktok.com/@giaa.nailedit">TIKTOK</a>
+    </div>
+  </div>
+
+  <section class="card pinkcard" aria-labelledby="drop-h">
+    <h2 id="drop-h">NEW MONTH DROPS &#9825;</h2>
+    <div class="drop">
+      <div class="drop-num" id="dropNum">--<small>DAYS</small></div>
+      <div>
+        <strong id="dropLine">Books open the third Friday</strong>
+        <p class="sub">I open next month's appointments on the third Friday of every month. Set a reminder so you don't miss your spot!</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="svc-h">
+    <h2 id="svc-h">SERVICES</h2>
+    <ul class="svc">
+      <li><span class="n">ACRYLIC FULL SET &#9825;</span><span class="p">from $100</span></li>
+      <li><span class="n">ACRYLIC FILL &#9825;</span><span class="p">from $85</span></li>
+      <li><span class="n">GEL-X FULL SET &#9825;</span><span class="p">from $100</span></li>
+      <li><span class="n">STRUCTURED GEL (HARD GEL) &#9825;</span><span class="p">from $85</span></li>
+    </ul>
+    <p class="sub">Every service includes prep, shaping and one solid gel color. Prices include tax.</p>
+    <div class="formula">BASE + ART = YOUR SET &#9825;</div>
+    <a class="pill pill-dark" href="https://giaanailedit.glossgenius.com/services">VIEW ALL SERVICES</a>
+  </section>
+
+  <section class="card" aria-labelledby="tier-h">
+    <h2 id="tier-h">WHAT TIER IS MY ART? &#128064;</h2>
+    <p class="sub">Tap what your inspo looks like for a quick estimate.</p>
+
+    <p class="q" id="q1">WHAT KIND OF ART?</p>
+    <div class="chips" role="group" aria-labelledby="q1" id="styleChips">
+      <button class="chip" type="button" id="s-one" data-v="one" aria-pressed="true">Chrome, cat-eye or glitter</button>
+      <button class="chip" type="button" id="s-simple" data-v="simple" aria-pressed="false">Decals or simple art</button>
+      <button class="chip" type="button" id="s-french" data-v="french" aria-pressed="false">French, marble or layered aura</button>
+      <button class="chip" type="button" id="s-detail" data-v="detail" aria-pressed="false">Hand-painted or detailed</button>
+    </div>
+
+    <p class="q" id="q2">ON HOW MANY NAILS?</p>
+    <div class="chips" role="group" aria-labelledby="q2" id="countChips">
+      <button class="chip" type="button" id="c-12" data-v="1" aria-pressed="true">1&ndash;2</button>
+      <button class="chip" type="button" id="c-35" data-v="2" aria-pressed="false">3&ndash;5</button>
+      <button class="chip" type="button" id="c-69" data-v="3" aria-pressed="false">6&ndash;9</button>
+      <button class="chip" type="button" id="c-10" data-v="4" aria-pressed="false">All 10</button>
+    </div>
+
+    <div class="result" aria-live="polite">
+      <div class="result-tier">TIER<span id="tierNum">1</span></div>
+      <div class="result-text">
+        <strong id="tierPrice">+$15</strong>
+        <span id="tierWhy">One simple element per nail is Tier 1, even on all ten.</span>
+      </div>
+    </div>
+    <p class="fine">This is an estimate. Send your inspo when you book and I'll confirm your tier, so there are no surprises.</p>
+
+    <ul class="tiers" aria-label="All tiers">
+      <li><b>TIER 1</b><span class="amt">+$15</span><span>One simple element per nail</span></li>
+      <li><b>TIER 2</b><span class="amt">+$25</span><span>French, simple marble, simple art on 3+ nails</span></li>
+      <li><b>TIER 3</b><span class="amt">+$40</span><span>Detailed art, usually 6&ndash;9 nails</span></li>
+      <li><b>TIER 4</b><span class="amt">$75+</span><span>Full Custom</span></li>
+    </ul>
+  </section>
+
+  <section class="card pinkcard" aria-labelledby="prep-h">
+    <h2 id="prep-h">BEFORE YOUR APPOINTMENT</h2>
+    <ul class="list">
+      <li>A $30 nonrefundable deposit holds your spot and goes toward your total.</li>
+      <li>Send your inspo at least 48 hours before.</li>
+      <li>Send a pic of your natural nails and what product you have on now.</li>
+      <li>Let me know about any allergies or sensitivities.</li>
+      <li>Product from another tech? Add a removal when you book.</li>
+    </ul>
+  </section>
+
+  <section class="card darkcard" aria-labelledby="pol-h">
+    <h2 id="pol-h">POLICIES</h2>
+    <ul class="list">
+      <li>Cancel or reschedule at least 48 hours ahead. With that notice, your deposit can move once to a new appointment within 30 days.</li>
+      <li>Within 48 hours or a no-show is 50% of your service total, and the deposit is forfeited.</li>
+      <li>10-minute grace period. Later than that, your service or art may be shortened, but the full price still applies.</li>
+      <li>Free repairs within 7 days for chips, lifting, or a design that looks off. After 7 days, repairs are charged.</li>
+      <li>Fills every 3&ndash;4 weeks. 5+ weeks is a new set. Fills are for my work only.</li>
+      <li>Cash or card. Card has a 3.5% processing fee.</li>
+    </ul>
+    <a class="pill pill-line" href="https://giaanailedit.glossgenius.com/about">FULL POLICY</a>
+  </section>
+
+  <section class="card" aria-labelledby="faq-h">
+    <h2 id="faq-h">QUICK ANSWERS</h2>
+    <div class="faq">
+      <div>
+        <h3>IS FRENCH A TIER 1?</h3>
+        <p>Nope, French starts at Tier 2.</p>
+      </div>
+      <div>
+        <h3>CAN I GET A GEL-X FILL?</h3>
+        <p>Gel-X fills aren't offered. Acrylic and hard gel fills are.</p>
+      </div>
+      <div>
+        <h3>CAN I CHANGE MY SHAPE AT A FILL?</h3>
+        <p>Acrylic fills keep your current shape. Book a full set for a new shape.</p>
+      </div>
+      <div>
+        <h3>WHERE ARE YOU?</h3>
+        <p>687 Broadway, Brooklyn, NY 11206. Every appointment is one-on-one with me.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cash" aria-labelledby="cash-h">
+    <h2 id="cash-h">CASHMERE</h2>
+    <p>Saffron &middot; amberwood &middot; jasmine</p>
+    <p>My handmade cuticle oil in a gold twist pen.</p>
+    <p class="price">$12 &middot; $10 when you rebook in person</p>
+  </section>
+
+  <footer class="pad">
+    <a class="addr" href="https://www.google.com/maps/search/?api=1&amp;query=687%20Broadway%2C%20Brooklyn%2C%20NY%2C%2011206">687 BROADWAY, BROOKLYN, NY 11206</a>
+    <a href="https://www.instagram.com/giaa.nailedit/">INSTAGRAM @GIAA.NAILEDIT</a>
+    <a href="https://www.tiktok.com/@giaa.nailedit">TIKTOK @GIAA.NAILEDIT</a>
+    <a class="js-book" href="https://giaanailedit.glossgenius.com/book">BOOK ON GLOSSGENIUS</a>
+    <span class="copy">Hiii, I'm Gia &#9825; custom, funky + detailed nails in Brooklyn.</span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  // ---------- zebra print hero ----------
+  function drawZebra() {
+    var cv = document.getElementById("zebra");
+    if (!cv || !cv.getContext) return;
+    var r = cv.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = Math.round(r.width * dpr), H = Math.round(r.height * dpr);
+    cv.width = W; cv.height = H;
+    var ctx = cv.getContext("2d");
+    var seed = 7;
+    function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+
+    ctx.fillStyle = "#dcd6d5";
+    ctx.fillRect(0, 0, W, H);
+
+    // chevron stripes, like fur folding toward the middle
+    if ("filter" in ctx) ctx.filter = "blur(" + (2.2 * dpr) + "px)";
+    var gap = 34 * dpr;
+    for (var y0 = -H * 0.4; y0 < H * 1.3; y0 += gap * (0.8 + rnd() * 0.5)) {
+      var thick = (6 + rnd() * 10) * dpr;
+      var lift = (40 + rnd() * 30) * dpr;
+      ctx.beginPath();
+      var steps = 18;
+      var pts = [];
+      for (var i = 0; i <= steps; i++) {
+        var t = i / steps;
+        var x = t * W;
+        var v = Math.abs(t - 0.5) * 2;           // 0 at center, 1 at edges
+        var y = y0 - (1 - v) * lift + Math.sin(t * 9 + y0) * 6 * dpr + (rnd() - 0.5) * 6 * dpr;
+        pts.push([x, y]);
+      }
+      // top edge
+      ctx.moveTo(pts[0][0], pts[0][1]);
+      for (i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+      // bottom edge with varying thickness (tapered breaks)
+      for (i = pts.length - 1; i >= 0; i--) {
+        var tt = i / steps;
+        var w = thick * (0.35 + 0.65 * Math.abs(Math.sin(tt * 3.1 + y0)));
+        ctx.lineTo(pts[i][0], pts[i][1] + w);
+      }
+      ctx.closePath();
+      ctx.fillStyle = "rgba(92, 80, 82, " + (0.5 + rnd() * 0.25) + ")";
+      ctx.fill();
+    }
+    if ("filter" in ctx) ctx.filter = "none";
+
+    // fur grain
+    for (var k = 0; k < 2600; k++) {
+      var gx = rnd() * W, gy = rnd() * H, len = (3 + rnd() * 7) * dpr;
+      ctx.strokeStyle = rnd() > 0.5 ? "rgba(255,255,255,.18)" : "rgba(60,50,52,.12)";
+      ctx.lineWidth = dpr;
+      ctx.beginPath(); ctx.moveTo(gx, gy); ctx.lineTo(gx + (rnd() - 0.5) * 2 * dpr, gy + len); ctx.stroke();
+    }
+  }
+
+  // ---------- countdown to the third Friday ----------
+  function thirdFriday(y, m) {
+    var dow = new Date(y, m, 1).getDay();
+    var first = 1 + ((5 - dow + 7) % 7);
+    return new Date(y, m, first + 14);
+  }
+  var now = new Date();
+  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  var target = thirdFriday(today.getFullYear(), today.getMonth());
+  if (today > target) target = thirdFriday(today.getFullYear(), today.getMonth() + 1);
+  var days = Math.round((target - today) / 86400000);
+  var opening = new Date(target.getFullYear(), target.getMonth() + 1, 1).toLocaleString("en-US", { month: "long" });
+  var num = document.getElementById("dropNum");
+  var line = document.getElementById("dropLine");
+  if (days === 0) {
+    num.innerHTML = "&#9825;<small>TODAY</small>";
+    line.textContent = opening + " books open today!";
+  } else {
+    num.innerHTML = days + "<small>" + (days === 1 ? "DAY" : "DAYS") + "</small>";
+    line.textContent = opening + " books open Fri, " + target.toLocaleString("en-US", { month: "short", day: "numeric" });
+  }
+
+  // ---------- tier finder ----------
+  var price = { 1: "+$15", 2: "+$25", 3: "+$40", 4: "$75+ Full Custom" };
+  var style = "one", count = 1;
+  function estimate() {
+    if (style === "one") return [1, "One simple element per nail is Tier 1, even on all ten."];
+    if (style === "simple") {
+      return count === 1 ? [1, "Decals or simple art on 1–2 nails is Tier 1."]
+                         : [2, "Decals or simple art on more than 2 nails is Tier 2."];
+    }
+    if (style === "french") return [2, "French, simple marble and layered aura are Tier 2, even on all ten."];
+    if (count === 4) return [4, "Detailed art on every nail is Full Custom, priced case by case."];
+    return [3, "Hand-painting and detailed art start at Tier 3."];
+  }
+  function render() {
+    var r = estimate();
+    document.getElementById("tierNum").textContent = r[0];
+    document.getElementById("tierPrice").textContent = price[r[0]];
+    document.getElementById("tierWhy").textContent = r[1];
+    var off = style === "one" || style === "french";
+    document.querySelectorAll("#countChips .chip").forEach(function (b) { b.disabled = off; });
+  }
+  function wire(id, set) {
+    var btns = document.querySelectorAll("#" + id + " .chip");
+    btns.forEach(function (b) {
+      b.addEventListener("click", function () {
+        btns.forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
+        b.setAttribute("aria-pressed", "true");
+        set(b.dataset.v); render();
+      });
+    });
+  }
+  wire("styleChips", function (v) { style = v; });
+  wire("countChips", function (v) { count = Number(v); });
+  render();
+})();
+</script>
+</body>
+</html>
