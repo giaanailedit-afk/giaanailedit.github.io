@@ -156,6 +156,12 @@ h2 { font-family: var(--head); font-weight: 400; font-size: 30px; line-height: 1
 .tiers li { display: grid; grid-template-columns: 64px 54px 1fr; gap: 8px; font-size: 14px; align-items: baseline; }
 .tiers b { font-family: var(--head); font-weight: 400; font-size: 17px; letter-spacing: 1px; }
 .tiers .amt { font-weight: 800; font-variant-numeric: tabular-nums; }
+.gallery { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; margin: 0 -18px; padding-left: 18px; padding-right: 18px; }
+.gallery figure { flex: 0 0 62%; margin: 0; scroll-snap-align: start; position: relative; }
+.gallery img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.gallery figcaption { position: absolute; left: 8px; top: 8px; background: var(--night); color: var(--pink); font-family: var(--head); font-size: 15px; letter-spacing: 2px; padding: 3px 8px 1px; }
+.result-pic { display: block; width: 100%; max-height: 260px; object-fit: cover; object-position: center 25%; }
+.result-pic[hidden] { display: none; }
 
 /* lists */
 .list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
@@ -258,6 +264,7 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
         <span id="tierWhy">One simple element per nail is Tier 1, even on all ten.</span>
       </div>
     </div>
+    <img class="result-pic" id="tierPic" alt="" hidden>
     <p class="fine">This is an estimate. Send your inspo when you book and I'll confirm your tier, so there are no surprises.</p>
 
     <ul class="tiers" aria-label="All tiers">
@@ -266,6 +273,12 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
       <li><b>TIER 3</b><span class="amt">+$40</span><span>Detailed art, usually 6&ndash;9 nails</span></li>
       <li><b>TIER 4</b><span class="amt">$75+</span><span>Full Custom</span></li>
     </ul>
+
+    <p class="q" id="ex-h">REAL SETS BY TIER</p>
+    <div class="gallery" role="list" aria-labelledby="ex-h">
+      <figure role="listitem"><img src="img/tier3-1.jpg" width="720" height="756" loading="lazy" alt="Tier 3 set: nude square nails with pink French tips and zebra-stripe tips lined with pink rhinestones"><figcaption>TIER 3</figcaption></figure>
+      <figure role="listitem"><img src="img/tier3-2.jpg" width="720" height="819" loading="lazy" alt="Tier 3 set: short nails with a black and white polka dot nail, iridescent chrome ridges, a black and yellow aura, and a yellow spotted French tip"><figcaption>TIER 3</figcaption></figure>
+    </div>
   </section>
 
   <section class="card pinkcard" aria-labelledby="prep-h">
@@ -412,6 +425,10 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
   // ---------- tier finder ----------
   var price = { 1: "+$15", 2: "+$25", 3: "+$40", 4: "$75+ Full Custom" };
   var style = "one", count = 1;
+  // One example photo per tier, shown under the estimate. Add tiers here as photos come in.
+  var EXAMPLES = {
+    3: { src: "img/tier3-1.jpg", alt: "pink French tips with zebra-stripe tips and rhinestones" }
+  };
   function estimate() {
     if (style === "one") return [1, "One simple element per nail is Tier 1, even on all ten."];
     if (style === "simple") {
@@ -427,6 +444,9 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
     document.getElementById("tierNum").textContent = r[0];
     document.getElementById("tierPrice").textContent = price[r[0]];
     document.getElementById("tierWhy").textContent = r[1];
+    var pic = document.getElementById("tierPic"), ex = EXAMPLES[r[0]];
+    if (ex) { pic.src = ex.src; pic.alt = "Example of a Tier " + r[0] + " set: " + ex.alt; pic.hidden = false; }
+    else { pic.hidden = true; pic.removeAttribute("src"); }
     var off = style === "one" || style === "french";
     document.querySelectorAll("#countChips .chip").forEach(function (b) { b.disabled = off; });
   }
