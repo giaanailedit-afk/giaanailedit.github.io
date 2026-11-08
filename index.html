@@ -467,8 +467,8 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
   var num = document.getElementById("dropNum");
   var line = document.getElementById("dropLine");
   var sub = document.getElementById("dropSub");
-  // 2026 season: Dec, Jan + Feb all open at once on Fri Nov 13; regular third-Friday releases resume Fri Jan 15, 2027.
-  var SEASON_OPEN = new Date(2026, 10, 13), RESUME = new Date(2027, 0, 15);
+  // 2026 season: Dec, Jan + Feb all open at once on Fri Nov 13 for the Black Friday sale (through Nov 30). From Dec 1 the window is back to 1 month and third-Friday releases resume: Dec 18 opens January, Jan 15 opens February.
+  var SEASON_OPEN = new Date(2026, 10, 13), RESUME = new Date(2026, 11, 1);   // sale window ends Nov 30; third-Friday releases resume with Fri Dec 18 (January)
   function daysTo(d) { return Math.round((d - today) / 86400000); }
   if (Date.now() < Date.UTC(2026, 10, 13, 15, 0, 0)) {   // opens Fri Nov 13 at 10 AM New York time
     var d0 = daysTo(SEASON_OPEN);
