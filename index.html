@@ -108,6 +108,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--pink); outline-
 /* cards */
 .card { background: var(--white); color: var(--ink); padding: 22px 18px; display: flex; flex-direction: column; gap: 12px; }
 .card.pinkcard { background: var(--pink); color: var(--night); }
+.card[hidden] { display: none; }
 .card.darkcard { background: var(--night-2); color: var(--white); border: 1px solid rgba(255, 203, 228, .25); }
 h2 { font-family: var(--head); font-weight: 400; font-size: 30px; line-height: 1; letter-spacing: 1px; margin: 0; text-wrap: balance; }
 .darkcard h2 { color: var(--pink); }
@@ -189,6 +190,20 @@ h2 { font-family: var(--head); font-weight: 400; font-size: 30px; line-height: 1
 .faq { display: grid; gap: 14px; }
 .faq h3 { font-family: var(--head); font-weight: 400; font-size: 19px; letter-spacing: .5px; margin: 0 0 2px; }
 
+/* tap-to-open questions + policies */
+.acc { display: grid; }
+.acc details { border-top: 1px solid #e7e3e5; }
+.acc details:last-child { border-bottom: 1px solid #e7e3e5; }
+.acc summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 11px 0 9px; font-family: var(--head); font-size: 18px; letter-spacing: .5px; line-height: 1.15; }
+.acc summary::-webkit-details-marker { display: none; }
+.acc summary::after { content: "+"; flex: none; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--pink); color: var(--night); font-family: var(--body); font-size: 18px; font-weight: 700; line-height: 1; }
+.acc details[open] summary::after { content: "\2212"; }
+.acc .ans { padding: 0 0 14px; }
+.acc .ans p { margin: 0; }
+.acc .ans a { font-weight: 700; }
+.darkcard .acc details { border-color: rgba(255, 203, 228, .25); }
+.darkcard .acc summary { color: var(--white); }
+
 /* cashmere */
 .cash { background: #120c10; border: 1px solid var(--gold); padding: 26px 20px; display: flex; flex-direction: column; gap: 8px; text-align: center; }
 .cash h2 { font-family: var(--serif); font-size: 26px; letter-spacing: 9px; color: var(--gold); font-weight: 500; }
@@ -230,7 +245,7 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
     </div>
   </div>
 
-  <section class="card pinkcard" aria-labelledby="drop-h">
+  <section class="card pinkcard" id="dropCard" aria-labelledby="drop-h" hidden>
     <h2 id="drop-h">NEW MONTH DROPS &#9825;</h2>
     <div class="drop">
       <div class="drop-num" id="dropNum">--<small>DAYS</small></div>
@@ -262,6 +277,14 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
       <a class="pill pill-line" href="https://ig.me/m/giaa.nailedit">DM ME YOUR DATES</a>
     </div>
     <p class="fine" id="bfFine">Sale opens Friday, November 13 at 10 AM and ends Monday, November 30 at 11:59 PM. Moving an appointment to a different month or cancelling it means that appointment loses the 15%.</p>
+  </section>
+
+  <section class="cash" aria-labelledby="cash-h">
+    <span class="cash-tag" id="cashTag">COMING 12/1</span>
+    <h2 id="cash-h">CASHMERE</h2>
+    <p>Saffron &middot; amberwood &middot; jasmine</p>
+    <p>My handmade cuticle oil in a gold twist pen.</p>
+    <p class="price">$12 &middot; $10 when you add it to your set</p>
   </section>
 
   <section class="card" aria-labelledby="svc-h">
@@ -332,62 +355,80 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
     </div>
   </section>
 
-  <section class="card pinkcard" aria-labelledby="prep-h">
-    <h2 id="prep-h">BEFORE YOUR APPOINTMENT</h2>
-    <ul class="list">
-      <li>A $30 nonrefundable deposit holds your spot and goes toward your total.</li>
-      <li>Send your inspo at least 48 hours before.</li>
-      <li>Send a pic of your natural nails and what product you have on now.</li>
-      <li>Let me know about any allergies or sensitivities.</li>
-      <li>Product from another tech? Add a removal when you book.</li>
-    </ul>
+  <section class="card" aria-labelledby="faq-h">
+    <h2 id="faq-h">QUESTIONS? TAP ONE &#9825;</h2>
+    <div class="acc">
+      <details>
+        <summary>HOW DO I BOOK?</summary>
+        <div class="ans"><p>Online through <a class="js-book" href="https://giaanailedit.glossgenius.com/book">Book Now</a>. A $30 deposit holds your spot. New appointments open the third Friday of every month.</p></div>
+      </details>
+      <details>
+        <summary>BEFORE MY APPOINTMENT?</summary>
+        <div class="ans"><ul class="list">
+          <li>Send your inspo at least 48 hours before.</li>
+          <li>Send a pic of your natural nails + what product you have on.</li>
+          <li>Another tech's product? Add a removal when you book.</li>
+          <li>Tell me about any allergies or sensitivities.</li>
+        </ul></div>
+      </details>
+      <details>
+        <summary>FILLS?</summary>
+        <div class="ans"><ul class="list">
+          <li>Every 3&ndash;4 weeks. 5+ weeks is a new set.</li>
+          <li>My work only. Acrylic + hard gel only (no Gel-X fills).</li>
+          <li>Acrylic fills keep your shape. New shape = new set.</li>
+        </ul></div>
+      </details>
+      <details>
+        <summary>REPAIRS + REFUNDS?</summary>
+        <div class="ans"><p>No refunds. Chip, lifting or a design that looks off? Text me within 7 days for a free repair. After 7 days, repairs are charged.</p></div>
+      </details>
+      <details>
+        <summary>WHEN + WHERE?</summary>
+        <div class="ans"><p>687 Broadway, Brooklyn, NY 11206, one-on-one with me. Through December: Mon, Tue, Fri, Sat + Sun. From January: Wed&ndash;Fri 9 AM&ndash;7:30 PM, Sat + Sun 10 AM&ndash;6 PM.</p></div>
+      </details>
+    </div>
   </section>
 
   <section class="card darkcard" aria-labelledby="pol-h">
     <h2 id="pol-h">POLICIES</h2>
-    <ul class="list">
-      <li>Cancel or reschedule at least 48 hours ahead. With that notice, your deposit can move once to a new appointment within 30 days.</li>
-      <li>Within 48 hours or a no-show is 50% of your service total.</li>
-      <li>10-minute grace period. Later than that, your service or art may be shortened, but the full price still applies.</li>
-      <li>Free repairs within 7 days for chips, lifting, or a design that looks off. After 7 days, repairs are charged.</li>
-      <li>Fills every 3&ndash;4 weeks. 5+ weeks is a new set. Fills are for my work only.</li>
-      <li>Cash or card. Card has a 3.5% processing fee.</li>
-    </ul>
-    <a class="pill pill-line" href="https://giaanailedit.glossgenius.com/about">FULL POLICY</a>
-  </section>
-
-  <section class="card" aria-labelledby="faq-h">
-    <h2 id="faq-h">QUICK ANSWERS</h2>
-    <div class="faq">
-      <div>
-        <h3>IS FRENCH A TIER 1?</h3>
-        <p>Nope, French starts at Tier 2.</p>
-      </div>
-      <div>
-        <h3>CAN I GET A GEL-X FILL?</h3>
-        <p>Gel-X fills aren't offered. Acrylic and hard gel fills are.</p>
-      </div>
-      <div>
-        <h3>CAN I CHANGE MY SHAPE AT A FILL?</h3>
-        <p>Acrylic fills keep your current shape. Book a full set for a new shape.</p>
-      </div>
-      <div>
-        <h3>WHAT DAYS DO YOU WORK?</h3>
-        <p>Through December: Monday, Tuesday, Friday, Saturday + Sunday. Starting in January: Wednesday&ndash;Friday 9 AM&ndash;7:30 PM and Saturday + Sunday 10 AM&ndash;6 PM.</p>
-      </div>
-      <div>
-        <h3>WHERE ARE YOU?</h3>
-        <p>687 Broadway, Brooklyn, NY 11206. Every appointment is one-on-one with me.</p>
-      </div>
+    <p class="sub">By booking, you agree to these.</p>
+    <div class="acc">
+      <details>
+        <summary>DEPOSIT + PAYMENT</summary>
+        <div class="ans"><ul class="list">
+          <li>$30 non-refundable deposit to book. It goes toward your service.</li>
+          <li>48+ hours' notice: it can move once to a new date within 30 days.</li>
+          <li>Pay at your appointment. Cash or card (3.5% card fee).</li>
+        </ul></div>
+      </details>
+      <details>
+        <summary>CANCELLING + NO-SHOWS</summary>
+        <div class="ans"><ul class="list">
+          <li>Text me at least 48 hours before to cancel or reschedule.</li>
+          <li>Within 48 hours or a no-show: 50% of your service total.</li>
+          <li>One reschedule per appointment. A second needs a new deposit.</li>
+          <li>Balances must be paid before you book again.</li>
+        </ul></div>
+      </details>
+      <details>
+        <summary>RUNNING LATE</summary>
+        <div class="ans"><ul class="list">
+          <li>10-minute grace period.</li>
+          <li>15+ minutes late: your service or art may be shortened. Same price.</li>
+          <li>Not enough time left? The appointment may be cancelled.</li>
+        </ul></div>
+      </details>
+      <details>
+        <summary>NAIL ART + PRICING</summary>
+        <div class="ans"><ul class="list">
+          <li>Book the tier that matches your inspo. I'll confirm it 48 hours before.</li>
+          <li>Different tier or changes at the appointment? Adjusted if there's time, simplified if not.</li>
+          <li>I don't work over another tech's product. Book a removal.</li>
+        </ul></div>
+      </details>
     </div>
-  </section>
-
-  <section class="cash" aria-labelledby="cash-h">
-    <span class="cash-tag" id="cashTag">COMING 12/1</span>
-    <h2 id="cash-h">CASHMERE</h2>
-    <p>Saffron &middot; amberwood &middot; jasmine</p>
-    <p>My handmade cuticle oil in a gold twist pen.</p>
-    <p class="price">$12 &middot; $10 when you add it to your set</p>
+    <a class="pill pill-line" href="https://giaanailedit.glossgenius.com/about">FULL CLIENT AGREEMENT</a>
   </section>
 
   <footer class="pad">
@@ -470,21 +511,9 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
   // 2026 season: Dec, Jan + Feb all open at once on Fri Nov 13 for the Black Friday sale (through Nov 30). From Dec 1 the window is back to 1 month and third-Friday releases resume: Dec 18 opens January, Jan 15 opens February.
   var SEASON_OPEN = new Date(2026, 10, 13), RESUME = new Date(2026, 11, 1);   // sale window ends Nov 30; third-Friday releases resume with Fri Dec 18 (January)
   function daysTo(d) { return Math.round((d - today) / 86400000); }
-  if (Date.now() < Date.UTC(2026, 10, 13, 15, 0, 0)) {   // opens Fri Nov 13 at 10 AM New York time
-    var d0 = daysTo(SEASON_OPEN);
-    if (d0 <= 0) {
-      num.innerHTML = "&#9825;<small>TODAY</small>";
-      line.textContent = "December, January + February books open today at 10 AM";
-    } else {
-      num.innerHTML = d0 + "<small>" + (d0 === 1 ? "DAY" : "DAYS") + "</small>";
-      line.textContent = "December, January + February books open Fri, Nov 13";
-    }
-    sub.textContent = "All three months open at once. Set a reminder so you don't miss your spot!";
-  } else if (today < RESUME) {
-    num.innerHTML = "&#9825;<small>OPEN</small>";
-    line.textContent = "December, January + February are open now";
-    sub.textContent = "Starting in January I'm booking Wednesday through Sunday too \u2661";
-  } else {
+  // Through Nov 30 only the Black Friday card shows. From Dec 1 (booking window back to 1 month) this card counts down to the third Friday.
+  if (today >= RESUME) {
+    document.getElementById("dropCard").hidden = false;
     var target = thirdFriday(today.getFullYear(), today.getMonth());
     if (today > target) target = thirdFriday(today.getFullYear(), today.getMonth() + 1);
     var days = daysTo(target);
