@@ -213,6 +213,74 @@ h2 { font-family: var(--head); font-weight: 400; font-size: 30px; line-height: 1
 .rev-all { text-align: center; font-size: 14px; font-weight: 600; }
 .rev figcaption { font-family: var(--head); font-size: 14px; letter-spacing: 1.2px; }
 
+/* ---------- December winter wonderland (body.winter, Dec 1–31) ---------- */
+.hero-wrap { position: relative; }
+.note { display: none; }
+body.winter {
+  --night: #1b262d; --night-2: #27363F; --pink: #DCE0E8; --wine: #6B212C;
+  background:
+    radial-gradient(circle at 12% 6%, rgba(255, 214, 150, .22), transparent 30%),
+    radial-gradient(circle at 92% 38%, rgba(255, 214, 150, .14), transparent 26%),
+    linear-gradient(180deg, #2c3c46 0%, #1b262d 50%, #141c21 100%);
+  background-attachment: fixed;
+}
+.lights { display: none; }
+body.winter .lights { display: block; position: absolute; left: 0; top: -4px; width: 100%; height: auto; z-index: 3; pointer-events: none; overflow: visible; }
+.lights .wire { fill: none; stroke: #1a2228; stroke-width: 1.4; stroke-linecap: round; }
+.lights .cap { fill: #2c383f; }
+.lights .glow { mix-blend-mode: multiply; animation: glow var(--d, 2.4s) ease-in-out var(--dl, 0s) infinite; }
+.lights .halo { fill: url(#bulbHalo); animation: glow var(--d, 2.4s) ease-in-out var(--dl, 0s) infinite; }
+.lights .glass { stroke: rgba(0, 0, 0, .35); stroke-width: .5; animation: glass var(--d, 2.4s) ease-in-out var(--dl, 0s) infinite; }
+@keyframes glow { 0%, 100% { opacity: 1; } 45% { opacity: .85; } 52% { opacity: .08; } 62% { opacity: 1; } }
+@keyframes glass { 0%, 100% { fill: var(--on); } 45% { fill: var(--on); } 52% { fill: var(--off); } 62% { fill: var(--hi); } }
+@media (prefers-reduced-motion: reduce) { .lights .glow, .lights .halo, .lights .glass { animation: none; } }
+body.winter .hero { filter: brightness(.96) contrast(1.02); }
+body.winter .hero-wrap::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at 50% 120%, rgba(255, 255, 255, .55), transparent 60%); }
+body.winter .list li::before, body.winter .rev .stars, body.winter .heart { color: #6B212C; }
+body.winter .darkcard .list li::before { color: #DCE0E8; }
+body.winter .card:not(.darkcard) .acc summary::after { background: #6B212C; color: #fff; }
+body.winter .formula { background: #6B212C; color: #DCE0E8; }
+body.winter .band { background: #DCE0E8; color: #6B212C; }
+body.winter .top .mini, body.winter footer .addr { color: #BEB3AC; }
+body.winter .card.darkcard { border-color: rgba(220, 224, 232, .25); }
+body.winter .drop-num { background: #6B212C; color: #DCE0E8; }
+/* New Month Drops as a vintage postcard */
+body.winter #dropCard { background: #f4efe6; color: #27363F; margin: 0 14px; padding-top: 34px; border: 1px solid #d8cfc2; box-shadow: 0 10px 24px rgba(0, 0, 0, .35); transform: rotate(-1deg);
+  background-image: repeating-linear-gradient(180deg, transparent 0 27px, rgba(142, 161, 174, .25) 27px 28px); }
+body.winter #dropCard::before { content: "POSTCARD"; position: absolute; top: 10px; left: 18px; font-family: var(--serif); font-size: 15px; letter-spacing: 4px; color: #8EA1AE; }
+body.winter #dropCard::after { content: "\2744"; position: absolute; top: 10px; right: 14px; width: 46px; height: 54px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #6B212C; border: 2px dashed #8EA1AE; background: #fbf8f2; }
+body.winter #dropCard h2 { color: #6B212C; padding-right: 50px; }
+body.winter #dropCard .note { display: block; font-family: var(--script); font-size: 26px; line-height: 1.2; color: #27363F; margin: 2px 0 0; }
+
+body.winter .hol { background: #27363F; border-color: #DCE0E8; }
+body.winter .hol .bf-tag { background: #6B212C; color: #DCE0E8; }
+body.winter .hol .bf-clock div { background: #1b262d; border-color: rgba(220, 224, 232, .35); }
+body.winter .hol .bf-clock span { color: #BEB3AC; }
+
+/* CASHMERE in winter: berry velvet + frosty silver */
+body.winter .cash { background: linear-gradient(160deg, #7a2633 0%, #6B212C 45%, #4a1520 100%); border-color: #BEB3AC; }
+body.winter .cash h2 { color: #DCE0E8; }
+body.winter .cash p { color: #e4dcd6; }
+body.winter .cash .price, body.winter .cash-lead { color: #DCE0E8 !important; }
+body.winter .cash-tag { background: #DCE0E8; color: #6B212C; }
+body.winter .cash-acc details { border-color: rgba(220, 224, 232, .35) !important; }
+body.winter .cash-acc summary { color: #DCE0E8; }
+body.winter .cash-acc summary::after { background: #BEB3AC; color: #4a1520; }
+body.winter .cash-acc .list li, body.winter .cash-acc .ans p { color: #e4dcd6; }
+body.winter .cash-acc .list li::before { color: #BEB3AC; }
+body.winter .cash-acc .list b { color: #fff; }
+
+.pola { display: none; }
+body.winter #dropCard::after { display: none; }
+body.winter #dropCard .pola { display: block; position: absolute; top: -14px; right: 12px; width: 94px; margin: 0; padding: 5px 5px 20px; background: #fff; box-shadow: 0 6px 14px rgba(0, 0, 0, .3); transform: rotate(6deg); z-index: 2; }
+body.winter #dropCard .pola img { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 20%; }
+body.winter #dropCard .pola figcaption { position: absolute; left: 0; right: 0; bottom: 3px; text-align: center; font-family: var(--script); font-size: 13px; white-space: nowrap; color: #27363F; line-height: 1; }
+body.winter #dropCard h2 { padding-right: 100px; }
+
+/* december snowfall (turns on Dec 1, off Jan 1) */
+#snow { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; display: none; }
+body.winter #snow { display: block; }
+
 /* cashmere */
 .cash { background: #120c10; border: 1px solid var(--gold); padding: 26px 20px; display: flex; flex-direction: column; gap: 8px; text-align: center; }
 .cash h2 { font-family: var(--serif); font-size: 26px; letter-spacing: 9px; color: var(--gold); font-weight: 500; }
@@ -237,6 +305,8 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
 </style>
 </head>
 <body>
+<canvas id="snow" aria-hidden="true"></canvas>
+
 <div class="wrap">
 
   <nav class="top" aria-label="Giaa.Nailedit">
@@ -246,7 +316,7 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
 
   <h1 class="hero-title">GIAA.NAILEDIT</h1>
 
-  <img class="hero" src="logo.jpg" width="900" height="1125" alt="Giaa Nailedit logo on zebra print. Located in Brooklyn NY.">
+  <div class="hero-wrap"><svg class="lights" id="lights" aria-hidden="true"></svg><img class="hero" src="logo.jpg" width="900" height="1125" alt="Giaa Nailedit logo on zebra print. Located in Brooklyn NY."></div>
 
 
   <div class="band" aria-label="Custom funky detailed nails. More than just a mani. New clients welcome.">
@@ -265,6 +335,7 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
   </div>
 
   <section class="card pinkcard" id="dropCard" aria-labelledby="drop-h" hidden>
+    <figure class="pola"><img src="img/home-garland.webp" width="350" height="400" loading="lazy" alt="Gianna's doorway decorated with garland, lights and gold stars"><figcaption>home &#9825;</figcaption></figure>
     <h2 id="drop-h">NEW MONTH DROPS &#9825;</h2>
     <div class="drop">
       <div class="drop-num" id="dropNum">--<small>DAYS</small></div>
@@ -273,6 +344,7 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
         <p class="sub" id="dropSub">I open new appointments on the third Friday of every month. Set a reminder so you don't miss your spot!</p>
       </div>
     </div>
+    <p class="note">January books open soon, can't wait to see you &#9825; Gia</p>
   </section>
 
   <section class="bf" id="bfCard" aria-labelledby="bf-h">
@@ -296,6 +368,19 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
       <a class="pill pill-line" href="https://ig.me/m/giaa.nailedit">DM ME YOUR DATES</a>
     </div>
     <p class="fine" id="bfFine">Sale opens Friday, November 13 at 10 AM and ends Monday, November 30 at 11:59 PM. Moving an appointment to a different month or cancelling it means that appointment loses the 15%.</p>
+  </section>
+
+  <section class="bf hol" id="holCard" aria-labelledby="hol-h" hidden>
+    <span class="bf-tag" id="holTag">&#10052; DECEMBER</span>
+    <h2 id="hol-h">COUNTDOWN TO CHRISTMAS &#9825;</h2>
+    <div class="bf-clock" role="timer" aria-live="off">
+      <div><b id="holD">0</b><span>DAYS</span></div>
+      <div><b id="holH">00</b><span>HRS</span></div>
+      <div><b id="holM">00</b><span>MIN</span></div>
+      <div><b id="holS">00</b><span>SEC</span></div>
+    </div>
+    <p id="holLine">Want holiday nails? Grab your spot before the big day &#9825;</p>
+    <a class="pill pill-solid js-book" href="https://giaanailedit.glossgenius.com/book">BOOK NOW</a>
   </section>
 
   <section class="cash" aria-labelledby="cash-h">
@@ -658,6 +743,153 @@ footer .copy { font-family: var(--body); font-size: 12px; letter-spacing: 0; col
   wire("styleChips", function (v) { style = v; });
   wire("countChips", function (v) { count = Number(v); });
   render();
+  // ---------- December holiday countdown: Christmas (Dec 1–24), Merry Christmas (Dec 25), New Year's Eve (Dec 26–31) ----------
+  (function () {
+    var now0 = new Date();
+    if (now0.getMonth() !== 11) return;
+    var y = now0.getFullYear();
+    var XMAS = Date.UTC(y, 11, 25, 5, 0, 0);      // midnight Dec 25, New York (EST)
+    var XMAS_END = Date.UTC(y, 11, 26, 5, 0, 0);
+    var NY = Date.UTC(y + 1, 0, 1, 5, 0, 0);       // midnight Jan 1, New York
+    var card = document.getElementById("holCard"); card.hidden = false;
+    var h2 = document.getElementById("hol-h"), line = document.getElementById("holLine"), tag = document.getElementById("holTag");
+    function p2(n) { return (n < 10 ? "0" : "") + n; }
+    function tick() {
+      var t = Date.now(), target;
+      if (t < XMAS) { target = XMAS; h2.innerHTML = "COUNTDOWN TO CHRISTMAS &#9825;"; tag.innerHTML = "&#10052; DECEMBER"; line.innerHTML = "Want holiday nails? Grab your spot before the big day &#9825;"; }
+      else if (t < XMAS_END) { target = XMAS_END; h2.innerHTML = "MERRY CHRISTMAS &#9825;"; tag.innerHTML = "&#10052; DEC 25"; line.innerHTML = "Thank you for an amazing year. New Year's sets are next &#9825;"; }
+      else if (t < NY) { target = NY; h2.innerHTML = "COUNTDOWN TO NEW YEAR'S &#9825;"; tag.innerHTML = "&#10052; NYE"; line.innerHTML = "Ring in " + (y + 1) + " with a fresh set &#9825;"; }
+      else { card.hidden = true; return; }
+      var left = Math.max(0, Math.floor((target - t) / 1000));
+      document.getElementById("holD").textContent = Math.floor(left / 86400);
+      document.getElementById("holH").textContent = p2(Math.floor(left % 86400 / 3600));
+      document.getElementById("holM").textContent = p2(Math.floor(left % 3600 / 60));
+      document.getElementById("holS").textContent = p2(left % 60);
+    }
+    tick(); setInterval(tick, 1000);
+  })();
+
+  // ---------- December snowfall: on every December (Dec 1–31), off the rest of the year ----------
+  (function () {
+    var d = new Date();
+    if (d.getMonth() !== 11) return;
+    document.body.classList.add("winter");
+    var cv = document.getElementById("snow"), ctx = cv.getContext("2d");
+    var dpr = Math.min(window.devicePixelRatio || 1, 2), W, H, flakes = [];
+    function size() { W = cv.width = innerWidth * dpr; H = cv.height = innerHeight * dpr; }
+    size(); addEventListener("resize", size);
+
+    // real six-armed snowflake crystals, pre-drawn once (a few different designs)
+    function crystal(px, variant, blur) {
+      var c = document.createElement("canvas"), pad = 4 + blur * 3; c.width = c.height = px + pad * 2;
+      var g = c.getContext("2d"), r = px / 2;
+      g.translate(c.width / 2, c.height / 2);
+      if (blur) g.filter = "blur(" + blur + "px)";
+      g.strokeStyle = "rgba(255,255,255,0.95)"; g.lineCap = "round";
+      g.shadowColor = "rgba(190,215,235,0.9)"; g.shadowBlur = 2;
+      for (var i = 0; i < 6; i++) {
+        g.save(); g.rotate(i * Math.PI / 3);
+        g.lineWidth = Math.max(1, px / 18);
+        g.beginPath(); g.moveTo(0, 0); g.lineTo(0, -r); g.stroke();
+        g.lineWidth = Math.max(0.8, px / 26);
+        var br = variant === 0 ? [0.35, 0.62] : variant === 1 ? [0.45, 0.75] : [0.3, 0.55, 0.78];
+        for (var j = 0; j < br.length; j++) {
+          var y = -r * br[j], L = r * (variant === 2 ? 0.22 : 0.3) * (1 - br[j] * 0.4);
+          g.beginPath(); g.moveTo(0, y); g.lineTo(-L, y - L * 0.9); g.moveTo(0, y); g.lineTo(L, y - L * 0.9); g.stroke();
+        }
+        if (variant === 1) { g.beginPath(); g.moveTo(-r * 0.12, -r * 0.9); g.lineTo(0, -r); g.lineTo(r * 0.12, -r * 0.9); g.stroke(); }
+        g.restore();
+      }
+      g.fillStyle = "rgba(255,255,255,0.9)"; g.beginPath(); g.arc(0, 0, Math.max(1, px / 14), 0, 6.283); g.fill();
+      return c;
+    }
+    function dot(px, blur) {
+      var c = document.createElement("canvas"), pad = blur * 3 + 2; c.width = c.height = px + pad * 2;
+      var g = c.getContext("2d"), r = c.width / 2;
+      var gr = g.createRadialGradient(r, r, 0, r, r, px / 2 + blur * 2);
+      gr.addColorStop(0, "rgba(255,255,255,1)"); gr.addColorStop(0.5, "rgba(250,252,255,0.85)"); gr.addColorStop(1, "rgba(220,230,240,0)");
+      g.fillStyle = gr; g.beginPath(); g.arc(r, r, px / 2 + blur * 2, 0, 6.283); g.fill();
+      return c;
+    }
+    var D = dpr;
+    var sprites = {
+      far: [dot(3 * D, 0), dot(4 * D, 0)],
+      mid: [crystal(14 * D, 0, 0), crystal(16 * D, 1, 0), crystal(12 * D, 2, 0), dot(6 * D, 0.5)],
+      near: [crystal(30 * D, 1, 1.2 * D), crystal(26 * D, 0, 1.2 * D), crystal(34 * D, 2, 1.5 * D)]
+    };
+    function add(n, layer, sMin, sMax, oMin, oMax) {
+      for (var i = 0; i < n; i++) {
+        var list = sprites[layer];
+        flakes.push({ img: list[Math.floor(Math.random() * list.length)], x: Math.random(), y: Math.random(), s: sMin + Math.random() * (sMax - sMin),
+          w: Math.random() * 6.28, ws: 0.004 + Math.random() * 0.01, rot: Math.random() * 6.28, rs: (Math.random() - 0.5) * 0.02, o: oMin + Math.random() * (oMax - oMin) });
+      }
+    }
+    var k = Math.min(1.6, innerWidth / 390);
+    add(Math.round(60 * k), "far", 0.22, 0.4, 0.4, 0.75);
+    add(Math.round(26 * k), "mid", 0.45, 0.75, 0.75, 1);
+    add(Math.round(5 * k), "near", 0.9, 1.3, 0.45, 0.7);
+    var still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function draw(t) {
+      ctx.clearRect(0, 0, W, H);
+      var wind = Math.sin((t || 0) / 6000) * 0.0006;
+      for (var i = 0; i < flakes.length; i++) {
+        var f = flakes[i];
+        if (!still) { f.y += f.s * 0.0016; f.w += f.ws; f.rot += f.rs; f.x += Math.sin(f.w) * 0.0005 + wind * f.s; if (f.y > 1.04) { f.y = -0.04; f.x = Math.random(); } if (f.x > 1.05) f.x = -0.05; if (f.x < -0.05) f.x = 1.05; }
+        ctx.save(); ctx.globalAlpha = f.o; ctx.translate(f.x * W, f.y * H); ctx.rotate(f.rot);
+        ctx.drawImage(f.img, -f.img.width / 2, -f.img.height / 2); ctx.restore();
+      }
+      if (!still) requestAnimationFrame(draw);
+    }
+    draw(0);
+  })();
+
+  /* December twinkle lights draped across the logo */
+  (function () {
+    var svg = document.getElementById('lights');
+    if (!svg || !document.body.classList.contains('winter')) return;
+    var NS = 'http://www.w3.org/2000/svg', W = 400, H = 70;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    function el(n, a, p) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); (p || svg).appendChild(e); return e; }
+    var defs = el('defs', {});
+    // classic Christmas colors: [bulb on, bulb off, flash, glow]
+    var C = [
+      ['#e8333f', '#6b2a2e', '#ff8a8f', '#e3242b'],
+      ['#2fbf5b', '#2c4a35', '#9df0b4', '#1fa64a'],
+      ['#ffc93c', '#7a6438', '#fff0b0', '#ffb300'],
+      ['#3f8cff', '#2c3f5c', '#a9cbff', '#2f7bff'],
+      ['#ff5fa8', '#6a3550', '#ffb3d6', '#ff4fa0']
+    ];
+    C.forEach(function (c, i) {
+      var g = el('radialGradient', { id: 'glow' + i }, defs);
+      el('stop', { offset: '0', 'stop-color': c[3], 'stop-opacity': '.85' }, g);
+      el('stop', { offset: '.35', 'stop-color': c[3], 'stop-opacity': '.45' }, g);
+      el('stop', { offset: '1', 'stop-color': c[3], 'stop-opacity': '0' }, g);
+    });
+    var h = el('radialGradient', { id: 'bulbHalo' }, defs);
+    el('stop', { offset: '0', 'stop-color': '#ffffff', 'stop-opacity': '.75' }, h);
+    el('stop', { offset: '1', 'stop-color': '#ffffff', 'stop-opacity': '0' }, h);
+    // three soft swags, pinned just above the top edge
+    var pins = [0, 133, 267, 400], sag = [34, 42, 34], d = 'M ' + (-4) + ' 4';
+    for (var i = 0; i < 3; i++) {
+      var x0 = pins[i], x1 = pins[i + 1], mx = (x0 + x1) / 2;
+      d += ' Q ' + mx + ' ' + (4 + sag[i] * 2) + ' ' + (i === 2 ? W + 4 : x1) + ' 4';
+    }
+    var wire = el('path', { d: d, class: 'wire' });
+    var len = wire.getTotalLength(), n = 22;
+    for (var j = 0; j < n; j++) {
+      var t = (j + 0.5) / n * len, p = wire.getPointAtLength(t), q = wire.getPointAtLength(Math.min(len, t + 1));
+      var ang = Math.atan2(q.y - p.y, q.x - p.x) * 180 / Math.PI * .45 + (j % 2 ? 7 : -7);
+      var b = el('g', { class: 'bulb', transform: 'translate(' + p.x.toFixed(1) + ' ' + p.y.toFixed(1) + ') rotate(' + ang.toFixed(1) + ')' });
+      b.style.setProperty('--d', (1.6 + Math.random() * 2.6).toFixed(2) + 's');
+      b.style.setProperty('--dl', (-Math.random() * 4).toFixed(2) + 's');
+      var c = C[j % C.length];
+      b.style.setProperty('--on', c[0]); b.style.setProperty('--off', c[1]); b.style.setProperty('--hi', c[2]);
+      el('circle', { cx: 0, cy: 9, r: 14, class: 'glow', fill: 'url(#glow' + (j % C.length) + ')' }, b);
+      el('circle', { cx: 0, cy: 9, r: 8, class: 'halo' }, b);
+      el('rect', { x: -2.1, y: 0, width: 4.2, height: 4, rx: .8, class: 'cap' }, b);
+      el('ellipse', { cx: 0, cy: 8.6, rx: 3.2, ry: 5, class: 'glass' }, b);
+    }
+  })();
 })();
 </script>
 </body>
